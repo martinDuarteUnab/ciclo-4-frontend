@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/"
+const BASE_URL = "http://129.213.188.180:8080/"
 
 
 export async function listaAgendas() {
@@ -17,8 +17,14 @@ export async function guardarAgenda(agenda) {
     return await res.json();
 };
 
-export async function eliminarAgendaPorId(id) {
-    const options = {method: 'DELETE'};
-    const res = await fetch(BASE_URL+"citas/"+id, options);
-    return await res.text();
+
+
+export async function findAllMedicos() {
+    const res = await fetch(BASE_URL+"medicos");
+    return await res.json();
+};
+
+export async function findAgendaById(id) {
+    const res = await fetch(BASE_URL+"citas/"+id);
+    return await res.json();
 };
