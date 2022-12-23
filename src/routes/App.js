@@ -5,6 +5,7 @@ import { AgendaPage } from "../pages/AgendaPage"
 import { ContactPage } from "../pages/ContactPage"
 import { HomePage } from "../pages/HomePage"
 import { NotFound } from "../pages/NotFound"
+import { AgendaForm } from "../pages/AgendaForm"
 
 function App() {
 
@@ -16,7 +17,10 @@ function App() {
       <Route path="/" element={<HomePage/>}/>
       <Route path="/contacto" element={<ContactPage/>}/>
       <Route path="/agenda" element={<AgendaPage/>}/> 
-      <Route path="/agenda/:id" element={<AgendaDetalle/>}/> 
+      <Route path="*" element={<NotFound/>}/>
+      <Route path="/agenda/:id" element={<AgendaDetalle/>}/>
+      <Route path="/agenda/form" element={<AgendaForm/>}/> 
+
       <Route path="*" element={<NotFound/>}/>
      </Routes>
      </HashRouter>     

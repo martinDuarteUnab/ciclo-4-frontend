@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import {  listaAgendas } from "../server/Server";
 
 function TablaAgendas() {
 
     const [agendas, setAgendas] = useState([]);
 
     async function cargarAgendas() {
-        const options = { method: 'GET' };
-    fetch('http://localhost:8080/agendas', options)
-        .then(response => response.json())
-        .then(response => setAgendas(response))
-        .catch(err => console.error(err));
+        try {
+            const res = await listaAgendas();
+            setAgendas(res);
+        } catch (error) {
+            console.log(error);
+        }
     };
+
+
     useEffect(()=>{
         cargarAgendas();
     },[])
@@ -21,8 +25,14 @@ function TablaAgendas() {
 
     return (
         <Container>
-            <Row>
+            <Row className="my-3">
                 <Col><h2>Lista de Agendas</h2></Col>
+                <Col xs={6}></Col>
+                <Col>
+                    <Link to="/agenda/form">
+                        <Button variant="success">Registrar</Button>
+                    </Link>
+                </Col>
             </Row>
             <Table striped bordered hover>
                 <thead>
@@ -32,7 +42,7 @@ function TablaAgendas() {
                         <th>Fecha</th>
                         <th>Id Medico</th>
                         <th>Ver Detalle</th>
-                        <th>Eliminar</th>
+                        <th> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +54,7 @@ function TablaAgendas() {
                             <td>{agenda.fecha}</td>
                             <td>{agenda.id_medico}</td>
                             <td><Link>Ver Detalle</Link></td>
-                            <td><Button variant="danger">Eliminar</Button></td>
+                            
                            </tr> 
                         ))
                     }

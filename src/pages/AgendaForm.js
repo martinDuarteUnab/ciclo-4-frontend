@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { guardarAgenda } from "../server/Server";
 
-function AgendaDetalle() {
+function AgendaForm() {
 
     const navigate = useNavigate();
 
@@ -75,4 +75,4 @@ function AgendaDetalle() {
         </Container>
     )
 
-} export { AgendaDetalle }
+} export { AgendaForm }
