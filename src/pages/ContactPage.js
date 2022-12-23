@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, {} from 'react';
+import { Container } from 'react-bootstrap';
 
 function ContactPage() {
 
-    const [count, setCount] = useState(0);
-
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
-  });
+    
 
   return (
-    <div>
-      <h1>Pagina de Contacto</h1>
-      <p>Ejemplo de React Hooks de estado</p>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
+    <Container>
+    < div>
+       <h1>Pagina de Contacto</h1>
+          <h2>Profesor </h2>
+          <p>Carlos Mejia </p>
+          <h2>integrantes del equipo</h2>
+          <ol>
+            <li>Martin Andres Duarte Florez</li>
+            <li>Fredy Yesid Ramirez Sosa</li>
+            <li>David Vega</li>
+            <li>Natalia Lopez</li>
+          </ol>
+      </div>
+    </Container>
   );
 
   

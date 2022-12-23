@@ -1,38 +1,86 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { findAgendaById, guardarAgenda } from "../server/Server";
+import { useNavigate, useParams } from "react-router-dom";
+import { existPacienteByNdocumento, findAgendaById,  findPacienteByNdocumento,  guardarAgenda } from "../server/Server";
 
 function CitasAgendaPage() {
+
+    const navigate = useNavigate();
+
+    function returnToAgenda() {
+
+        navigate("/agenda-citas")
+    
+    };
 
     const { id } = useParams();
 
     const [agenda, setAgenda] = useState({});
     const [horaRadio, setHoraRadio]= useState("");
+    const [ndocumento , setNdocumento]=useState("");
+    const [citas , setCitas] = useState([]);
+
+
 
     useEffect(() => {
+
         findAgendaById(id).then(data => {
+
             setAgenda(data);
+            setCitas(data.citas)
+
         })
-    }, []);
+    }, [id]);
 
     const handleSelect = (e) =>{
+
         setHoraRadio(e.target.value);
+    
     };
 
     async function handleSubmit(){
-        if (horaRadio!=="") {
-            agenda.citas.push({hora:horaRadio,id_paciente:""});
-            guardarAgenda(agenda);
+        if (horaRadio!=="" && ndocumento !=="") {
 
-        }else{
-            alert("Seleccione un Horario")
+             const resultado = await existPacienteByNdocumento(ndocumento);
+            
+             if (resultado === true) {
+                
+                const paciente = await findPacienteByNdocumento(ndocumento)
+                const consulta= pacientesAgendados.includes(paciente.id);
+
+                if (!consulta) {
+
+                    agenda.citas.push({hora:horaRadio,id_paciente:paciente.id});
+                    delete agenda.nombremedico
+                    delete agenda.especialidad
+                    guardarAgenda(agenda);
+                    alert("Cita Agendada");
+                    returnToAgenda();
+
+                } else {
+
+                    alert("Paciente ya tiene una cita en esta Agenda")
+                    }
+                }else{
+                alert("Paciente No Registrado")
+                }
         }
 
     }
 
     const franjaHoraria = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00"];
 
+    let horariosOcupados = [];
+    let pacientesAgendados=[]
+    citas.map(cita=>{
+        pacientesAgendados.push(cita.id_paciente)
+        })
+
+    const handleChange = (e) =>{
+
+        setNdocumento(e.target.value);
+    
+        };
 
     return (
         <Container className="my-3">
@@ -65,16 +113,25 @@ function CitasAgendaPage() {
                                 name="hora"
                                 value={hora}
                                 onChange={handleSelect}
+                                disabled={horariosOcupados.includes(hora) ? true : false}
                             />
                         ))
                     }
 
                 </Col>
+                <Col xs lg="2">
+                <Form.Label>N° de Identificación del Paciente</Form.Label>
+                <Form.Control
+                    required
+                    onChange={handleChange}
+                    type="number"
+                />
+                </Col>
                 
             </Row>
             <Row>
                 <Col>
-                <Button variant="success" onClick={()=>handleSubmit()}>Registrar Cita</Button>
+                    <Button variant="success" onClick={()=>handleSubmit()}>Registrar Cita</Button>
                 </Col>
             </Row>
 
