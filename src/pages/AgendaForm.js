@@ -38,7 +38,7 @@ function AgendaForm() {
 
     return (
         <Container>
-            <h1>Registrar Agenda</h1>
+            <h1>Registrar cita</h1>
             <Form className="my-3" onSubmit={handleSubmit}>
                 <Row>
                     <Col xs="auto" className="my-1">

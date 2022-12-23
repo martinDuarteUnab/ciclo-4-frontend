@@ -26,7 +26,7 @@ function TablaAgendas() {
     return (
         <Container>
             <Row className="my-3">
-                <Col><h2>Lista de Agendas</h2></Col>
+                <Col><h2>Lista de citas</h2></Col>
                 <Col xs={6}></Col>
                 <Col>
                     <Link to="/agenda/form">
@@ -38,11 +38,11 @@ function TablaAgendas() {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Id Agenda</th>
+                        <th>Id cita</th>
                         <th>Fecha</th>
                         <th>Id Medico</th>
                         <th>Ver Detalle</th>
-                        <th> </th>
+                        
                     </tr>
                 </thead>
                 <tbody>

@@ -12,7 +12,7 @@ function ContactPage() {
 
   return (
     <div>
-      <h1>Pagina de Contcto</h1>
+      <h1>Pagina de Contacto</h1>
       <p>Ejemplo de React Hooks de estado</p>
       <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
